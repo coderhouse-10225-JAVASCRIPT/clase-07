@@ -5,14 +5,19 @@ class UserProfile {
     }
 
     save(){
-        localStorage.setItem("Darkmode", this.darkmode);
+        // Ahora creo un objeto porque mas datos para guardar...
+        let objecto1 = { darkmode: this.darkmode , language: this.language};
+        localStorage.setItem("UserProfile", JSON.stringify(objecto1));
     }
 
     load() {
-        let loaded_darkmode = localStorage.getItem("Darkmode");
+        let loaded_darkmode = localStorage.getItem("UserProfile");
 
         if (loaded_darkmode != null){
-            this.darkmode = (loaded_darkmode=="true") ? true : false;
+            // Lo vuelvo a convertir en objeto
+            let loaded_darkmode_JSON = JSON.parse(loaded_darkmode);
+            this.darkmode = loaded_darkmode_JSON.darkmode;
+            this.language = loaded_darkmode_JSON.language;
         }
         
     }
